@@ -1,0 +1,70 @@
+services:
+    web:
+        image: nginx
+        restart: always
+        ports:
+            - 80:80
+        volumes:
+            - ./.docker/conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./html:/var/www/html
+        depends_on:
+            - php
+            - db
+        networks:
+            - backend_network
+
+    php:
+        build:
+            context: .docker
+            args:
+                WWWUSER: 'laravel'
+                WWWUID: '1000'
+        restart: always
+        ports:
+            - "8000:8000"
+            - "9003:9003"
+        environment:
+            - XDEBUG_MODE=develop,debug,coverage
+            - XDEBUG_CONFIG=client_host=host.docker.internal client_port=9003
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        volumes:
+            - ./.docker/conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./.docker/conf/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+            - ./html:/var/www/html
+            - ./logs:/var/log
+        networks:
+            - backend_network
+
+    composer:
+        image: composer
+        volumes:
+            - ./html:/app
+        command: install
+
+    db:
+        image: postgres
+        restart: always
+        ports:
+            - 5432:5432
+        volumes:
+            - ./.docker/conf/postgres/:/docker-entrypoint-initdb.d/
+            - ./.docker/database/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_DB=${DB_DATABASE}
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        networks:
+            - backend_network
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 4352:8080
+        networks:
+            - backend_network
+
+networks:
+    backend_network:
+        driver: bridge
