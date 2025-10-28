@@ -29,7 +29,7 @@ Docker использует Nginx, PHP-FPM, PostgreSQL, Composer, Adminer и Lar
 11. Создание рабочих таблиц в БД - `make database-migrate` (`docker compose run --rm php php artisan migrate`)   
 12. Добавление в БД первичных данных (10 пользователей) - `make demo-seed` (`docker compose run --rm php php artisan db:seed`)  
 13. Очистить кеш можно командой - `make app-cache-clear`  
-14. Сформировать (обновить) интерактивную документацию (требуется предварительная очистка кеш) - `app-generate-doc` (`docker compose run --rm php php artisan scribe:generate`)   
+14. Сформировать (обновить) интерактивную документацию (требуется предварительная очистка кеш) - `make app-generate-doc` (`docker compose run --rm php php artisan scribe:generate`)   
 15. Страница проекта http://your-domain   
 16. Страница adminer: http://your-domain:4352   
 17. Страница интерактивной документации http://your-domain/docs   
