@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+    FROM php:8.2-fpm
 
 # Arguments defined in docker-compose.yml
 ARG WWWUSER
@@ -30,6 +30,7 @@ RUN docker-php-ext-install -j$(nproc) iconv gd mysqli pdo_pgsql pdo_mysql soap b
 
 # Install Xdebug
 RUN pecl install xdebug 3.2.2
+RUN docker-php-ext-enable xdebug
 
 RUN mkdir -p /var/log && \
     touch /var/log/xdebug.log && \
