@@ -12,14 +12,14 @@ composer-update:
 generate-app-key:
 	docker compose run --rm php php artisan key:generate
 
+start-dev:
+	docker compose up -d
+
 database-migrate:
 	docker compose run --rm php php artisan migrate
 
 demo-seed:
 	docker compose run --rm php php artisan db:seed
-
-start-dev:
-	docker compose up -d
 
 app-cache-clear:
 	docker compose exec php php artisan cache:clear
