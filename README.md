@@ -25,9 +25,9 @@ Docker использует Nginx, PHP-FPM, PostgreSQL, Composer, Adminer и Lar
 7. В директории html создать .env по примеру .env.example. Внести в .env настройки работы с БД из .env, находящегося в корне проекта.  
 8. Обновление указанных в composer.json библиотек - `make composer-update` (`docker compose run --rm php composer update`)  
 9. Сгенерировать ключ безопасности - `make generate-app-key` (`docker compose run --rm php php artisan key:generate`)  
-10. Создание рабочих таблиц в БД - `make database-migrate` (`docker compose run --rm php php artisan migrate`)   
-11. Добавление в БД первичных данных (10 пользователей) - `make database-seed` (`docker compose run --rm php php artisan db:seed`)  
-12. Команда запуска контейнера - `make start-dev` (`docker compose up -d`)  
+10. Команда запуска контейнера - `make start-dev` (`docker compose up -d`)  
+11. Создание рабочих таблиц в БД - `make database-migrate` (`docker compose run --rm php php artisan migrate`)   
+12. Добавление в БД первичных данных (10 пользователей) - `make database-seed` (`docker compose run --rm php php artisan db:seed`)  
 13. Очистить кеш можно командой - `make app-cache-clear`  
 14. Сформировать (обновить) интерактивную документацию (требуется предварительная очистка кеш) - `app-generate-doc` (`docker compose run --rm php php artisan scribe:generate`)   
 15. Страница проекта http://your-domain   
